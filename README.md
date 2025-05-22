@@ -53,7 +53,8 @@ Derived composites (e.g., RGB COGs/Zarr), updating the Derived STAC Catalog.
 
 ## Architecture
 
-![img.png](img.png)
+
+![ScreenRecording2025-05-22at09 48 27-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/a589a802-e08b-4c01-b37e-a035ab417dce)
 
 
 ## 🧭 Pipeline Overview

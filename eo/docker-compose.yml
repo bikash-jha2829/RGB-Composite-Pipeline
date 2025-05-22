@@ -1,0 +1,46 @@
+services:
+  prefect-server:
+    image: prefecthq/prefect:3.0.0rc14-python3.11
+    command: prefect server start --host 0.0.0.0
+    environment:
+      - PREFECT_API_URL=http://prefect-server:4200/api
+    ports:
+      - "4200:4200"
+    networks:
+      - prefect-network
+
+  prefect-worker:
+    image: prefecthq/prefect:3.0.0rc14-python3.11   # or upgrade this to rc15/3.0.0
+    command: prefect worker start -p geo-pool -t process
+    environment:
+      - PREFECT_API_URL=http://prefect-server:4200/api
+    volumes:
+      - .:/app          # ← mounts your Mac’s project into /app in the container
+      - ./output:/data
+    networks:
+      - prefect-network
+    working_dir: /app   # ← so the worker runs with CWD=/app
+#  api:
+#    build: .                            # or: image: python:3.11-slim + poetry install
+#    command: uvicorn api:app --host 0.0.0.0 --port 8000
+#    environment:
+#      - PREFECT_API_URL=http://prefect-server:4200/api
+#    volumes:
+#      - .:/app
+#    ports:
+#      - "4200:4200"
+#    networks:
+#      - prefect-network
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: prefect
+      POSTGRES_PASSWORD: prefect
+      POSTGRES_DB: prefect
+    networks:
+      - prefect-network
+
+networks:
+  prefect-network:
+    driver: bridge

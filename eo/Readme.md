@@ -101,16 +101,26 @@ Makefile simplifies execution by managing dependencies and execution order.
 ### 1.1 make help : 
 ```bash
  make help
-====================================================
-                Available Make Targets
 
 ====================================================
+                Available Make Targets
+====================================================
+
+Usage: make <target>
+
+Targets:
+  start        Run the end-to-end launcher (FastAPI + Prefect + Dask)
+  stop         Stop all running services (FastAPI, Prefect, worker jobs)
+  help         Show available make commands
+
+
 
 ```
 ### 1.2 Run End to End (FASTAPI->PREFECT->TRIGGERDASK)
 
 ```bash
  make start
+```
 <details> <summary><b>Execution Log (Click to Expand)</b></summary>
 
 ```angular2html
